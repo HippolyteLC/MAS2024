@@ -25,3 +25,17 @@ same_color(X,Y) :-
     (   (   black(X1,Y1), black(X2, Y2));
     (   white(X1, Y1), white(X2, Y2))).
 
+horizontal_distance(X,Y,Dist) :- 
+    horizontal(H), nth1(IX, H, X), nth1(IY, H, Y),
+    Dist is abs(IX - IY).
+
+vertical_distance(X,Y,Dist) :- 
+    Dist is abs(Y - X). 
+
+distance(A,B,C,D,Dist) :- 
+    horizontal_distance(A, C, R1),
+    vertical_distance(B, D, R2),
+    Dist is R1 + R2.
+
+
+
