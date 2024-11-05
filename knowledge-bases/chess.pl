@@ -13,4 +13,15 @@ black(X,Y) :-
     cell(X, Y),
     (   (   even_letter(X), even_number(Y) );
     (   not(even_letter(X)), not(even_number(Y)) )).
+white(X,Y) :-
+    cell(X,Y),
+    not(black(X,Y)).
+
+same_color(X,Y) :-
+    cell(X1, Y1),
+    cell(X2, Y2),
+    X = cell(X1, Y1),
+    Y = cell(X2, Y2),
+    (   (   black(X1,Y1), black(X2, Y2));
+    (   white(X1, Y1), white(X2, Y2))).
 
