@@ -1,5 +1,11 @@
 horizontal([a,b,c,d,e,f,g,h]).
 vertical([1,2,3,4,5,6,7,8]).
+piece_type(pawn).
+piece_type(rook).
+piece_type(horse).
+piece_type(bishop).
+piece_type(queen).
+piece_type(king).
 cell(X,Y) :- horizontal(H), vertical(V), member(X,H), member(Y,V).
 
 even_letters([b,d,f,h]).
@@ -37,5 +43,32 @@ distance(A,B,C,D,Dist) :-
     vertical_distance(B, D, R2),
     Dist is R1 + R2.
 
+%horizontal
+allowed(rook,A,B,C,B) :-
+    piece_type(rook),
+    cell(A,B), 
+    cell(C,B),
+    C \= A.
+
+%vertical
+allowed(rook,A,B,A,C) :-
+    piece_type(rook),
+    cell(A,B), 
+    cell(A,C),
+    C \= B.
+
+%only for white pawns
+allowed(pawn,A,B,A,C) :-
+    piece_type(pawn), 
+(    (cell(A,B), B =:= 2, C is 4, cell(A, C)) ; 
+    (cell(A,B), B > 2, C is B + 1, cell(A, C))).
 
 
+allowed(horse, A,B,C,D) :-
+    piece_type(horse), 
+
+    nth0(Index, horizontal, A),
+    nth0()
+
+
+    (C A cell(A,B), )
