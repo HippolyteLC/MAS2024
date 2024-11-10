@@ -72,11 +72,28 @@ allowed(king,A,B,C,D) :-
     member(A,H),
     member(D,V),
     member(C,H),
+
+%get the indices of the current cell and next cell
     nth0(IndexA, H, A),
     nth0(IndexB, V, B),
     nth0(IndexC, H, C),
     nth0(IndexD, V, D),
+%make sure the difference in index is 0 or 1(i.e. that the distance is 1). The abs ensures for all cases
+%that the next cell is only 1 index later in the hori and/or verti list
     abs(IndexC - IndexA) =< 1,
     abs(IndexD - IndexB) =< 1,
     cell(A, B) \= cell(C,D).
-    
+
+allowed(queen,A,B,C,D) :-
+    piece_type(queen),
+    horizontal(H),
+    vertical(V),
+    nth0(IndexA, H, A),
+    nth0(IndexB, V, B),
+    nth0(IndexC, H, C),
+    nth0(IndexD, V, D),
+    %here we check for vertical only V horizontal only V diagonal only
+    ((IndexA - IndexC) =:= (IndexB - IndexD);
+    IndexA =:= IndexC;
+    IndexB =:= IndexD),
+    cell(A, B) \= cell(C,D).    
