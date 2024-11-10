@@ -57,11 +57,11 @@ allowed(rook,A,B,A,C) :-
     cell(A,C),
     C \= B.
 
-%only for white pawns
-allowed(pawn,A,B,A,C) :-
+allowed(pawn, A, B, A, C) :-
     piece_type(pawn),
-(    (cell(A,B), B =:= 2, C is 4, cell(A, C)) ;
-    (cell(A,B), B > 2, C is B + 1, cell(A, C))).
+(    (cell(A, B), B =:= 2, (C is 4 ; C is 3), cell(A, C)) ; 
+     (cell(A, B), B > 2, C is B + 1, cell(A, C))).
+
 
 
 allowed(horse, A, B, C, D) :-
@@ -90,7 +90,3 @@ allowed(king, A, B, C, D) :-
     horizontal_distance(A, C, HDist),
     vertical_distance(B, D, VDist),
     max(HDist, VDist) =:= 1.
-
-
-
-
