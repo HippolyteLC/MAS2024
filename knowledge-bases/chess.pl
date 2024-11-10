@@ -60,15 +60,23 @@ allowed(rook,A,B,A,C) :-
 %only for white pawns
 allowed(pawn,A,B,A,C) :-
     piece_type(pawn), 
-(    (cell(A,B), B =:= 2, C is 4, cell(A, C)) ; 
+(    (cell(A,B), B =:= 2, (C is 4; C is 3), cell(A, C)) ;
+
     (cell(A,B), B > 2, C is B + 1, cell(A, C))).
 
-
-allowed(horse, A,B,C,D) :-
-    piece_type(horse), 
-
-    nth0(Index, horizontal, A),
-    nth0()
-
-
-    (C A cell(A,B), )
+allowed(king,A,B,C,D) :-
+    piece_type(king),
+    horizontal(H),
+    vertical(V),
+    member(B,V),
+    member(A,H),
+    member(D,V),
+    member(C,H),
+    nth0(IndexA, H, A),
+    nth0(IndexB, V, B),
+    nth0(IndexC, H, C),
+    nth0(IndexD, V, D),
+    abs(IndexC - IndexA) =< 1,
+    abs(IndexD - IndexB) =< 1,
+    cell(A, B) \= cell(C,D).
+    
