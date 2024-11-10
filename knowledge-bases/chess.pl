@@ -115,9 +115,9 @@ allowed(horse,A,B,C,D) :-
     nth0(IndexB, V, B),
     nth0(IndexC, H, C),
     nth0(IndexD, V, D),
-((    (IndexC - IndexA) =:= 2, 
-    (IndexD - IndexB) =:= 1);
-    (    (IndexA - IndexC) =:= 1, 
-    (IndexD - IndexB) =:= 2)),
+((    abs(IndexC - IndexA) =:= 2, 
+    abs(IndexD - IndexB) =:= 1);
+    (    abs(IndexC - IndexA) =:= 1, 
+    abs(IndexD - IndexB) =:= 2)),
     cell(A, B) \= cell(C,D).    
     
