@@ -97,3 +97,27 @@ allowed(queen,A,B,C,D) :-
     IndexA =:= IndexC;
     IndexB =:= IndexD),
     cell(A, B) \= cell(C,D).    
+
+allowed(bishop,A,B,C,D) :-
+    piece_type(bishop),
+    horizontal(H),
+    vertical(V),
+    nth0(IndexA, H, A),
+    nth0(IndexB, V, B),
+    nth0(IndexC, H, C),
+    nth0(IndexD, V, D),
+    (IndexA - IndexC) =:= (IndexB - IndexD),
+    cell(A, B) \= cell(C,D).    
+
+allowed(horse,A,B,C,D) :-
+    piece_type(horse),
+    nth0(IndexA, H, A),
+    nth0(IndexB, V, B),
+    nth0(IndexC, H, C),
+    nth0(IndexD, V, D),
+((    (IndexC - IndexA) =:= 2, 
+    (IndexD - IndexB) =:= 1);
+    (    (IndexA - IndexC) =:= 1, 
+    (IndexD - IndexB) =:= 2)),
+    cell(A, B) \= cell(C,D).    
+    
