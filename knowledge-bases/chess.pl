@@ -129,22 +129,24 @@ allowed(king,A,B,C,D) :-
     abs(IndexD - IndexB) =< 1,
     cell(A, B) \= cell(C,D).
 
-
+%case for N = 1
 reachable(Piece,A,B,C,D,1) :-
     allowed(Piece,A,B,C,D).
-
+%case for N = 2
 reachable(Piece,A,B,C,D,2) :-
     allowed(Piece,A,B,C1,D1),
     allowed(Piece,C1,D1,C,D).
-
+%case for N = 3
 reachable(Piece,A,B,C,D,3) :-
     allowed(Piece,A,B,C1,D1),
     allowed(Piece,C1,D1,C2,D2),
     allowed(Piece,C2,D2,C,D).
 
-
+% base case for N=1
 reachableInN(Piece,A,B,C,D,1) :- allowed(Piece,A,B,C,D).
 
+%recursion rule, the rule checks that N greater than 1 
+%and sees which moves are allowed, reduces N, and then recursively calls itself with the new N value and the new cell coords 
 reachableInN(Piece,A,B,C,D,N) :- 
     N > 1, 
     allowed(Piece, A,B,C1,D1), 
