@@ -21,9 +21,16 @@ black(X,Y) :-
     cell(X, Y),
     (   (   even_letter(X), even_number(Y) );
     (   not(even_letter(X)), not(even_number(Y)) )).
+    
+% A cell is black if both coordinates are either even or both are odd.
+
+
 white(X,Y) :-
     cell(X,Y),
     not(black(X,Y)).
+    
+% A cell is white if it is not black
+
 
 same_color(X,Y) :-
     cell(X1, Y1),
@@ -32,18 +39,30 @@ same_color(X,Y) :-
     Y = cell(X2, Y2),
     (   (   black(X1,Y1), black(X2, Y2));
     (   white(X1, Y1), white(X2, Y2))).
+    
+% X and Y have the same color if both are black cells or both are white cells.
+
 
 horizontal_distance(X,Y,Dist) :- 
     horizontal(H), nth1(IX, H, X), nth1(IY, H, Y),
     Dist is abs(IX - IY).
 
+% horizontal distance Dist between cells X and Y, calculated by their positions from the list H.
+
+
 vertical_distance(X,Y,Dist) :- 
     Dist is abs(Y - X). 
+    
+% Dist is the vertical distance between cells X and Y, calculated as the absolute difference between Y and X.
+
 
 distance(A,B,C,D,Dist) :- 
     horizontal_distance(A, C, R1),
     vertical_distance(B, D, R2),
     Dist is R1 + R2.
+    
+% Dist is the total distance between cells (A, B) and (C, D) calculated as the sum of the horizontal distance R1 and vertical distance R2.
+
 
 %horizontal
 allowed(rook,A,B,C,B) :-
@@ -52,6 +71,10 @@ allowed(rook,A,B,C,B) :-
     cell(C,B),
     C \= A.
 
+% The rook can move to move horizontally from (A, B) to (C, B) if A and C are in the same row and different columns.
+
+
+
 %vertical
 allowed(rook,A,B,A,C) :-
     piece_type(rook),
@@ -59,12 +82,21 @@ allowed(rook,A,B,A,C) :-
     cell(A,C),
     C \= B.
 
+% The rook is allowed to move vertically from (A, B) to (A, C) if A and C are in the same column and different rows.
+
+
+
+
 %only for white pawns
 allowed(pawn,A,B,A,C) :-
     piece_type(pawn), 
 (    (cell(A,B), B =:= 2, (C is 4; C is 3), cell(A, C)) ;
 
     (cell(A,B), B > 2, C is B + 1, cell(A, C))).
+
+% The white pawn can move from (A, B) to (A, C). If it moves from row 2, it can move one or two squares forward, from other rows, it can only move one square forward.
+
+
 
 allowed(queen,A,B,C,D) :-
     piece_type(queen),
@@ -80,6 +112,9 @@ allowed(queen,A,B,C,D) :-
     IndexB =:= IndexD),
     cell(A, B) \= cell(C,D).    
 
+    % The queen can move from (A, B) to (C, D) if the move is vertical, horizontal, or diagonal, provided, the starting square is not the same as the destination square.
+
+
 allowed(bishop,A,B,C,D) :-
     piece_type(bishop),
     horizontal(H),
@@ -90,6 +125,9 @@ allowed(bishop,A,B,C,D) :-
     nth0(IndexD, V, D),
     (IndexA - IndexC) =:= (IndexB - IndexD),
     cell(A, B) \= cell(C,D).    
+
+% The bishop can move from (A, B) to (C, D) if the move is diagonal, meaning the change in row equals the change in column, and the cells are not the same.
+
 
 
 allowed(horse, A,B,C,D) :-
@@ -108,6 +146,10 @@ allowed(horse, A,B,C,D) :-
 ),
     cell(A, B) \= cell(C,D). 
 
+% The knight can move from (A, B) to (C, D) if it moves in an "L" shape: two squares in one direction and one in the perpendicular direction, and if the cells are not the same.
+
+
+
 allowed(king,A,B,C,D) :-
     piece_type(king),
     
@@ -117,6 +159,10 @@ allowed(king,A,B,C,D) :-
     member(A,H),
     member(D,V),
     member(C,H),
+
+% The king can move from (A, B) to (C, D) if the squares exist.
+
+
 
 %get the indices of the current cell and next cell
     nth0(IndexA, H, A),
