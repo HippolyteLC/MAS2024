@@ -1,3 +1,5 @@
+%group 172 Joseph Agass, Hippolyte Le Carreres.
+
 horizontal([a,b,c,d,e,f,g,h]).
 vertical([1,2,3,4,5,6,7,8]).
 piece_type(pawn).
@@ -140,6 +142,14 @@ reachable(Piece,A,B,C,D,3) :-
     allowed(Piece,C1,D1,C2,D2),
     allowed(Piece,C2,D2,C,D).
 
+
+reachableInN(Piece,A,B,C,D,1) :- allowed(Piece,A,B,C,D).
+
+reachableInN(Piece,A,B,C,D,N) :- 
+    N > 1, 
+    allowed(Piece, A,B,C1,D1), 
+    NewN is N-1, 
+    reachableInN(Piece,C1,D1,C,D,NewN).
 
     
 
