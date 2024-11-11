@@ -127,4 +127,21 @@ allowed(king,A,B,C,D) :-
     abs(IndexD - IndexB) =< 1,
     cell(A, B) \= cell(C,D).
 
+
+reachable(Piece,A,B,C,D,1) :-
+    allowed(Piece,A,B,C,D).
+
+reachable(Piece,A,B,C,D,2) :-
+    allowed(Piece,A,B,C1,D1),
+    allowed(Piece,C1,D1,C,D).
+
+reachable(Piece,A,B,C,D,3) :-
+    allowed(Piece,A,B,C1,D1),
+    allowed(Piece,C1,D1,C2,D2),
+    allowed(Piece,C2,D2,C,D).
+
+
+    
+
+
     
