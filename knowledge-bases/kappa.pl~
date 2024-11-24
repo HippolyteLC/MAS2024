@@ -1,0 +1,8 @@
+%count_agreement(L1, L2, YY?, YN?, NY?, NN?) :-
+
+count_YY([], [], 0).
+count_YY([H1|T1], [H2|T2], YY?) :-
+    count(T1, T2, YY?),
+    H1=H2, 
+    H1=1. 
+    
