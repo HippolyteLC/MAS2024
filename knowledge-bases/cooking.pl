@@ -1,4 +1,4 @@
-%Group 172, Hippolyte Le Carreres(hca102), Joseph Agess(jga)
+%Group 172, Hippolyte Le Carreres(hca102), Joseph Agess(jag208)
 
 step('pancakes', 1, 'Fill a mixing bowl with the flour, eggs and milk.',
      ['flour', 'eggs', 'milk'], ['mixing bowl']).

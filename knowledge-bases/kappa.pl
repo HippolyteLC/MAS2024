@@ -1,4 +1,4 @@
-% group 172, Hippolyte Le Carreres (hca102), Joseph Agass (jga)
+% group 172, Hippolyte Le Carreres (hca102), Joseph Agass (jag208)
 
 % this rule counts the yy occurences
 count_yy([], [], 0). 
