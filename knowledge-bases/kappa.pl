@@ -1,3 +1,4 @@
+% group 172, Hippolyte Le Carreres (hca102), Joseph Agass (jga)
 
 % this rule counts the yy occurences
 count_yy([], [], 0). 
@@ -57,4 +58,6 @@ ck(L1, L2, CK) :-
     observed_agreement(YY, YN, NY, NN, OA),
     chance_agreement(YY,YN,NY,NN,CA),
     CK is (OA - CA)/(1-CA).
+
+
 

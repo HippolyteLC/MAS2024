@@ -1,0 +1,25 @@
+
+step('pancakes', 1, 'Fill a mixing bowl with the flour, eggs and milk.',
+     ['flour', 'eggs', 'milk'], ['mixing bowl']).
+step('pancakes', 2, 'Mix the ingredients to a coherent batter.',
+     [], ['mixing bowl', 'mixer']).
+step('pancakes', 3, 'Heat a pan with a knob of butter.',
+     ['butter'], ['pan']).
+step('pancakes', 4, 'Bake the pancakes until all the batter is used up.',
+     [], ['pan']).
+step('pasta', 1, 'Boil a pan full of water.',
+     ['water'], ['cooking pan']).
+step('pasta', 2, 'Cut the garlic.',
+     ['garlic'], ['kitchen knife', 'cutting board']).
+step('pasta', 3, 'When the water boils, add the penne.',
+     ['water', 'penne'], ['cooking pan']).
+step('pasta', 4, 'Garnish to taste with grated cheese and your pasta is finished.',
+     ['grated cheese'], []).
+
+
+getStepText(Recipe,Index, Text) :-
+    step(Recipe, Index, Text, I1, I2).
+getSteps(Recipe, Steps) :-
+    findall(Recipe, step(Recipe, Steps, Text, I1, I2), Steps).
+
+
