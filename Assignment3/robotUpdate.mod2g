@@ -1,0 +1,16 @@
+use bw4tKnowledge.
+
+module robotUpdate {
+    % Update in which rooms the agent has been.
+    if in(PlaceID), room(PlaceID)
+       then insert(visited(PlaceID)).
+
+    % Persistently store blocks in the database.
+    forall block(BlockID, ColorID, PlaceID)
+       do insert(block(BlockID, ColorID, PlaceID)).
+
+    % Ensure blocks persist even when the agent leaves the room.
+    if not(in(PlaceID)), room(PlaceID),
+       block(BlockID, ColorID, PlaceID)
+       then insert(block(BlockID, ColorID, PlaceID)).
+}
