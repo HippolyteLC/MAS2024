@@ -19,7 +19,9 @@ define robot {
 	add sequence/1. % provides initial information about goal sequence of blocks.
 	update sequenceIndex/1. % keeps track of current needed color in sequence. 
 	update gripperCapacity/1. % feedback on the capacity of the robot's gripper. I.e. if can grip is free.
-	update holdingBlocks/1. % updates on the stack of blocks the robot is holding.
+	update holding/1. % updates on the stack of blocks the robot is holding.
+	
+	replace atBlock/1.
 }
 
 launchpolicy {
