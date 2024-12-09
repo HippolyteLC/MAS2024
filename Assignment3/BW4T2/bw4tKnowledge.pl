@@ -8,9 +8,10 @@
 	sequence/1,	% provides initial information about goal sequence of blocks.
 	sequenceIndex/1,% keeps track of current needed color in sequence. 
 	atBlock/1,	% indicates that the robot is within reach of a block. 
-	holdingBlocks/1,% keeps track of current held blocks by robot.
+	holding/1,% keeps track of current held blocks by robot.
 	gripperCapacity/1,	% current gripper capacity.
 	block/3. 
+	atBlock/1.
 	
 % A room is a place with exactly one neighbour; in other words, there is only one way to
 % get to and from that place.
@@ -22,4 +23,10 @@ not_yet_visited(PlaceID) :- room(PlaceID), not( visited(PlaceID) ).
 % rule for storing block information if seen in a room. 
 block(BlockID, ColorID, PlaceID) :- in(PlaceID), room(PlaceID), color(BlockID, ColorID).
 
-next_color_needed(EndGoal, Current)
+% Added next_color_needed/1 to determine the next required block color.
+next_color_needed(ColorID) :-
+    sequence(List),
+    sequenceIndex(Index),
+    nth0(Index, List, ColorID).
+
+ gripperCapacity(1).

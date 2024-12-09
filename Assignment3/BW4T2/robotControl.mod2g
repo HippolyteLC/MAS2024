@@ -2,13 +2,37 @@ use bw4tKnowledge.
 
 % module for moving the robot around in the BW4T environment.
 module robotControl {
+
+% Added rule to drop the block in the dropzone.
+	if holding(BlockID), not(state(traveling)),
+	   in('DropZone')
+  	   then putDown + delete(holding(BlockID)).
+	   
+% Added rule to go to the dropzone if holding a block.
+	if holding(_),
+	   not(in('DropZone')),
+	   not(state(traveling))
+	   then goTo('DropZone').	
+	   
+% Added rule to pick up a block of the needed color.
+	if next_color_needed(ColorID),
+	   block(BlockID, ColorID, _),
+	   atBlock(BlockID),
+	   not(holding(_))
+	   then pickUp(BlockID).	      
+	   
+% Added rule to move closer to a block of the needed color.
+	if next_color_needed(ColorID),
+	   block(BlockID, ColorID, PlaceID),
+	   in(PlaceID),
+	   not(state(traveling))
+	   then goToBlock(BlockID).
+	   
 	% goto a room that has not been visited.
 	if not_yet_visited(PlaceID), not( state(traveling) )
 		then goTo(PlaceID).
 
 	% terminate the agent if there are no more rooms to visit.
 	%if not( not_yet_visited(_) ) then exit-module.
-	
-	if sequence(ListA), sequenceIndex(I), length(ListA, LenA), CurrI is I + 1, LenA == CurrI then exit-module.
-	
+
 }
