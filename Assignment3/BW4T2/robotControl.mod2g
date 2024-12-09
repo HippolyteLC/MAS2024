@@ -5,9 +5,9 @@ use bw4tKnowledge.
 module robotControl {
 
 	% Rule to drop a bloSck in the DropZone.
-	if holding(BlockID), not(state(traveling)),
+	if holding(BlockID), block(BlockID, ColorID, PlaceID), not(state(traveling)),
 	   in('DropZone')
-  	   then putDown + delete( holding(BlockID) ).
+  	   then putDown + delete( block(BlockID, ColorID, PlaceID) ) + delete( holding(BlockID) ).
 	   
 	% Rule to go to the DropZone if holding a block.
 	if holding(_),
@@ -45,8 +45,7 @@ module robotControl {
 	if sequence(ListA), 
 		sequenceIndex(I), 
 		length(ListA, LenA), 
-		CurrI is I + 1, 
-		LenA == CurrI 
+		LenA == I 
 		then exit-module.
 			
 		
