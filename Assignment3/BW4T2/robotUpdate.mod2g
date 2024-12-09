@@ -7,6 +7,9 @@ module robotUpdate {
     % Update rooms visited by the robot.
     if in(PlaceID), room(PlaceID)
        then insert(visited(PlaceID)).
+       
+    if holding(BlockID), block(BlockID, ColorID, PlaceID)
+    	then delete( block(BlockID, ColorID, PlaceID) ).
 
     % Persist block information in the knowledge base.
     forall block(BlockID, ColorID, PlaceID)

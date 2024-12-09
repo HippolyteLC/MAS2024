@@ -4,10 +4,10 @@ use bw4tKnowledge.
 
 module robotControl {
 
-	% Rule to drop a block in the DropZone.
+	% Rule to drop a bloSck in the DropZone.
 	if holding(BlockID), not(state(traveling)),
 	   in('DropZone')
-  	   then putDown + delete(holding(BlockID)).
+  	   then putDown + delete( holding(BlockID) ).
 	   
 	% Rule to go to the DropZone if holding a block.
 	if holding(_),
@@ -26,11 +26,29 @@ module robotControl {
 	if next_color_needed(ColorID),
 	   block(BlockID, ColorID, PlaceID),
 	   in(PlaceID),
+	   not( holding(_) ),
 	   not(state(traveling))
 	   then goToBlock(BlockID).
+	
+	% Added rule to move closer to a block of the needed color.
+	if next_color_needed(ColorID),
+	   block(_, ColorID, PlaceID),
+	   not( in(PlaceID) ),
+	   not(state(traveling))
+	   then goTo(PlaceID).
+	   
 	   
 	% Rule to go to a room that has not been visited.
 	if not_yet_visited(PlaceID), not(state(traveling))
 		then goTo(PlaceID).
+		
+	if sequence(ListA), 
+		sequenceIndex(I), 
+		length(ListA, LenA), 
+		CurrI is I + 1, 
+		LenA == CurrI 
+		then exit-module.
+			
+		
 
 }
