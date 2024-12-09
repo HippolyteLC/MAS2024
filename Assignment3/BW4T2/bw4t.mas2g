@@ -3,27 +3,27 @@ use "bw4t-client-3.10.1.jar" with
 	serverip = "localhost", serverport = "8000",
 	agentcount = "1", humancount = "0", launchgui = "false", goal = "true".
 
+% Configuration file for BW4T MAS environment.
+% Specifies robot behavior, percepts, and decision-making modules.
+
 define robot {
-	use robotUpdate for updates.
-	use robotControl for decisions.
+	use robotUpdate for updates. % Handles percept updates.
+	use robotControl for decisions. % Handles robot actions.
 	
-	% percept handling
-	replace in/1. % indicates that the robot is in a room.
-	update state/1. % keeps track of state of movement of the robot.
-	add zone/5. % provides initial information about all the places in BW4T.
+	replace in/1. % Indicates the robot's current location.
+	update state/1. % Tracks the robot's movement state.
+	add zone/5. % Provides initial zone information.
 	
-	replace color/2. % provides information about the color of blocks. 
-	replace atBlock/1. % indicates that the robot is within reach of a block. 
-	%replace holding/1. % indicates that the robot is holding a block. 
-					   % single percept is sent out for each block. 
-	add sequence/1. % provides initial information about goal sequence of blocks.
-	update sequenceIndex/1. % keeps track of current needed color in sequence. 
-	update gripperCapacity/1. % feedback on the capacity of the robot's gripper. I.e. if can grip is free.
-	update holding/1. % updates on the stack of blocks the robot is holding.
-	update next_color_needed/2. 
-	replace atBlock/1.
+	replace color/2. % Provides block color information.
+	replace atBlock/1. % Indicates when the robot is near a block.
+	add sequence/1. % Provides the goal block sequence.
+	update sequenceIndex/1. % Tracks the current goal block in the sequence.
+	update gripperCapacity/1. % Tracks the robot's gripper capacity.
+	update holding/1. % Tracks the blocks the robot is holding.
+	update next_color_needed/2. % Tracks the next required block color.
+	replace atBlock/1. % Updates proximity to a block.
 }
 
 launchpolicy {
-	when * launch robot.
+	when * launch robot. % Automatically launches the robot agent.
 }
