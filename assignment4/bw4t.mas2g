@@ -1,4 +1,5 @@
 % Joseph Agass, 2809084, j.c.g.agass@student.vu.nl
+% Hippolyte Le Carreres, 2824997, h.le.carreres@student.vu.nl
 
 use "bw4t-client-3.10.1.jar" with 
 	clientip ="localhost", clientport="2000", 
