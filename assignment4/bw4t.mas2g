@@ -1,0 +1,31 @@
+% Joseph Agass, 2809084, j.c.g.agass@student.vu.nl
+
+use "bw4t-client-3.10.1.jar" with 
+	clientip ="localhost", clientport="2000", 
+	serverip = "localhost", serverport = "8000",
+	agentcount = "3", humancount = "0", launchgui = "false", goal = "true".
+
+% Configuration file for BW4T MAS environment.
+% Specifies robot behavior, percepts, and decision-making modules.
+
+define robot {
+	use robotUpdate for updates. % Handles percept updates.
+	use robotControl for decisions. % Handles robot actions.
+	
+	replace in/1. % Indicates the robot's current location.
+	update state/1. % Tracks the robot's movement state.
+	add zone/5. % Provides initial zone information.
+	
+	replace color/2. % Provides block color information.
+	replace atBlock/1. % Indicates when the robot is near a block.
+	add sequence/1. % Provides the goal block sequence.
+	update sequenceIndex/1. % Tracks the current goal block in the sequence.
+	update gripperCapacity/1. % Tracks the robot's gripper capacity.
+	update holding/1. % Tracks the blocks the robot is holding.
+	update next_color_needed/2. % Tracks the next required block color.
+	replace atBlock/1. % Updates proximity to a block.
+}
+
+launchpolicy {
+	when * launch robot with name =  *. % Automatically launches the robot agent.
+}

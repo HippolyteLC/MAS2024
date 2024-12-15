@@ -1,0 +1,21 @@
+use bw4tKnowledge.
+
+% Update module for maintaining the robot's knowledge base.
+
+module robotUpdate {
+
+    % Update rooms visited by the robot.
+    if in(PlaceID), room(PlaceID)
+       then insert(visited(PlaceID)).
+
+    % Persist block information in the knowledge base.
+    forall in(PlaceID), color(BlockID, ColorID)
+       do insert(block(BlockID, ColorID, PlaceID)).
+
+    % Ensure blocks persist when leaving the room.
+    %if not(in(PlaceID)), room(PlaceID),
+    %   block(BlockID, ColorID, PlaceID)
+    %   then insert(block(BlockID, ColorID, PlaceID)).
+
+    % Clear visited rooms during reset.
+}

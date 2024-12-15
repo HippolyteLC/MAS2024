@@ -1,0 +1,62 @@
+use bw4tKnowledge.
+
+% Control module for robot decision-making.
+
+module robotControl {
+	% Rule to drop a block in 'RoomC3' if it is not needed.
+	if holding(BlockID), block(BlockID, ColorID, holding), not(next_color_needed(ColorID)) then {
+    % Drop the block if already in 'RoomC3'.
+    	if in('RoomC3') 
+        	then putDown + delete(block(BlockID, ColorID, holding)).
+
+    % Move to 'RoomC3' if not already there.
+    	if not(in('RoomC3')), not(state(traveling)) 
+        	then goTo('RoomC3').
+	}
+
+	% Rule to drop a block in the DropZone if it is needed.
+	if holding(BlockID), block(BlockID, ColorID, holding), next_color_needed(ColorID) then {
+	    % Drop the block if in the DropZone.
+	    if in('DropZone') 
+	        then putDown + delete(block(BlockID, ColorID, holding)).
+	
+	    % Move to the DropZone if not already there.
+	    if not(in('DropZone')), not(state(traveling)) 
+	        then goTo('DropZone').
+	}	
+	   
+	% Rule to pick up a block of the needed color.
+	if next_color_needed(ColorID),
+	   block(BlockID, ColorID, _),
+	   atBlock(BlockID),
+	   not(holding(_))
+	   then pickUp(BlockID) + insert(block(BlockID, ColorID, holding)).
+	      
+	   
+	% Rule to move closer to a block of the needed color.
+	if next_color_needed(ColorID),
+	   block(BlockID, ColorID, PlaceID),
+	   in(PlaceID),
+	   not( holding(_) ),
+	   not(state(traveling))
+	   then goToBlock(BlockID).
+	
+	% Added rule to move closer to a block of the needed color.
+	if next_color_needed(ColorID),
+	   block(_, ColorID, PlaceID),
+	   not( in(PlaceID) ),
+	   not(state(traveling))
+	   then goTo(PlaceID).
+	   
+	   
+	% Rule to go to a room that has not been visited.
+	if not_yet_visited(PlaceID), not(state(traveling))
+		then goTo(PlaceID).
+		
+	if sequence(ListA), 
+		sequenceIndex(I), 
+		length(ListA, LenA), 
+		LenA == I 
+		then exit-module.	
+
+}
